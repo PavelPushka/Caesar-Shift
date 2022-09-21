@@ -1,0 +1,42 @@
+alpha = " .,;:!?ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+
+def caesar_encode(text, n):
+  encoded = ""
+  
+  for letter in text.upper():
+    if alpha.index(letter) + n > len(text):
+      i = (alpha.index(letter)+n)%len(alpha)
+      encoded += alpha[i]
+    else:
+      i = alpha.find(letter)
+      encoded += alpha[i + n]
+    
+  return encoded
+  
+
+def caesar_decode(text, n):
+  decoded = ""
+  
+  for letter in text.upper():
+    if alpha.index(letter) < n:
+      i = (alpha.index(letter)-n)%len(alpha)
+      decoded += alpha[i]
+    else:
+      i = alpha.find(letter)
+      decoded += alpha[i - n]
+    
+  return decoded
+
+
+tests = ["A", "Z", "HI", "ABBA", "HELLOWORLDZ", "BITL"]
+test = "The Caesar Shift is one of the earliest known secret codes."#tests[4]
+
+shift = 202
+
+enc = caesar_encode(test, shift)
+dec = caesar_decode(enc, shift)
+print(f"""Start text: {test}
+Encoded: {enc}
+Decoded: {dec}
+Is correct: {dec == test}""")
